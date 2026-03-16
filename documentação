@@ -1,8 +1,11 @@
+API Documentation
 1. Visão Geral
 
-A API foi desenvolvida para gerenciar produtos, estoque, locais físicos de armazenamento e pedidos. Ela segue o padrão REST, utilizando métodos HTTP para realizar operações de consulta, criação e atualização de dados.
+Esta API foi desenvolvida para gerenciar produtos, estoque, locais físicos de armazenamento e pedidos em um sistema de marketplace distribuído.
 
-Os principais recursos da API são:
+A API segue o padrão RESTful, utilizando métodos HTTP para realizar operações de consulta, criação e atualização de recursos.
+
+Recursos principais da API
 
 Produtos
 
@@ -14,8 +17,7 @@ Pedidos
 
 Itens do pedido
 
-Os métodos HTTP utilizados são:
-
+Métodos HTTP utilizados
 Método	Função
 GET	Consultar informações
 POST	Criar novos registros
@@ -23,8 +25,7 @@ PUT	Atualizar completamente um registro
 PATCH	Atualizar parcialmente um registro
 2. API de Produtos
 Criar produto
-
-POST /products
+POST /v1/products
 
 Cria um novo produto no sistema.
 
@@ -43,22 +44,19 @@ Resposta esperada
   "status": "available"
 }
 Listar produtos
-
-GET /products
+GET /v1/products
 
 Retorna todos os produtos cadastrados.
 
 Buscar produto específico
-
-GET /products/{product_id}
+GET /v1/products/{product_id}
 
 Retorna as informações de um produto específico.
 
 Atualizar produto
+PUT /v1/products/{product_id}
 
-PUT /products/{product_id}
-
-Atualiza todas as informações de um produto.
+Atualiza completamente as informações de um produto.
 
 Exemplo
 {
@@ -68,8 +66,7 @@ Exemplo
   "status": "available"
 }
 Atualizar status do produto
-
-PATCH /products/{product_id}/status
+PATCH /v1/products/{product_id}/status
 
 Atualiza apenas o status do produto.
 
@@ -79,8 +76,7 @@ Exemplo
 }
 3. API de Locais Físicos
 Criar local físico
-
-POST /locations
+POST /v1/locations
 
 Cria um novo local de armazenamento.
 
@@ -92,35 +88,30 @@ Exemplo
   "capacity": 1000
 }
 Listar locais
-
-GET /locations
+GET /v1/locations
 
 Retorna todos os locais cadastrados.
 
 Buscar local específico
-
-GET /locations/{location_id}
+GET /v1/locations/{location_id}
 
 Retorna os dados de um local específico.
 
 Atualizar local
-
-PUT /locations/{location_id}
+PUT /v1/locations/{location_id}
 
 Atualiza completamente os dados do local.
 
 Atualizar status do local
-
-PATCH /locations/{location_id}/status
+PATCH /v1/locations/{location_id}/status
 
 Atualiza apenas o status do local.
 
 4. API de Estoque
 Consultar estoque de um produto
+GET /v1/stock/{product_id}
 
-GET /stock/{product_id}
-
-Retorna as informações de estoque de um produto.
+Retorna as informações de estoque de um produto em diferentes locais.
 
 Resposta
 {
@@ -134,8 +125,7 @@ Resposta
   ]
 }
 Adicionar produto ao estoque
-
-POST /stock
+POST /v1/stock
 
 Registra um produto em um local físico.
 
@@ -146,32 +136,26 @@ Exemplo
   "quantity": 50
 }
 Atualizar quantidade do estoque
+PATCH /v1/stock/{product_id}/{location_id}
 
-PATCH /stock
-
-Atualiza parcialmente os dados de estoque.
+Atualiza parcialmente os dados de estoque de um produto em um local específico.
 
 Exemplo
 {
-  "product_id": "uuid",
-  "location_id": "uuid",
   "quantity": 60
 }
 Reservar estoque
-
-PATCH /stock/reserve
+PATCH /v1/stock/{product_id}/reserve
 
 Reserva uma quantidade de produto para um pedido.
 
 Exemplo
 {
-  "product_id": "uuid",
   "quantity": 5
 }
 5. API de Pedidos
 Criar pedido
-
-POST /orders
+POST /v1/orders
 
 Cria um novo pedido.
 
@@ -185,26 +169,22 @@ Exemplo
   ]
 }
 Listar pedidos
-
-GET /orders
+GET /v1/orders
 
 Retorna todos os pedidos registrados.
 
 Buscar pedido específico
-
-GET /orders/{order_id}
+GET /v1/orders/{order_id}
 
 Retorna os dados completos de um pedido.
 
 Atualizar pedido
-
-PUT /orders/{order_id}
+PUT /v1/orders/{order_id}
 
 Atualiza completamente um pedido.
 
 Atualizar status do pedido
-
-PATCH /orders/{order_id}/status
+PATCH /v1/orders/{order_id}/status
 
 Atualiza parcialmente o status do pedido.
 
@@ -214,8 +194,7 @@ Exemplo
 }
 6. API de Itens do Pedido
 Adicionar item ao pedido
-
-POST /orders/{order_id}/items
+POST /v1/orders/{order_id}/items
 
 Adiciona um produto a um pedido.
 
@@ -226,25 +205,46 @@ Exemplo
   "unit_price": 120.00
 }
 Listar itens do pedido
-
-GET /orders/{order_id}/items
+GET /v1/orders/{order_id}/items
 
 Retorna todos os itens de um pedido.
 
 Atualizar item do pedido
-
-PATCH /orders/items/{order_item_id}
+PATCH /v1/orders/items/{order_item_id}
 
 Atualiza quantidade ou preço de um item do pedido.
 
-7. Fluxo básico do sistema
+7. Códigos de Resposta HTTP
+Código	Significado
+200	Requisição realizada com sucesso
+201	Recurso criado com sucesso
+400	Requisição inválida
+404	Recurso não encontrado
+409	Conflito (ex: estoque insuficiente)
+500	Erro interno do servidor
+Exemplo de erro
+{
+  "error": "stock_unavailable",
+  "message": "Produto sem estoque disponível"
+}
+8. Fluxo Básico do Sistema
 
-Produtos são cadastrados utilizando POST /products.
+O funcionamento básico da aplicação segue os seguintes passos:
 
-Locais de armazenamento são cadastrados usando POST /locations.
+Produtos são cadastrados utilizando:
 
-O estoque é registrado com POST /stock.
+POST /v1/products
 
-Quando um pedido é criado (POST /orders), os produtos são adicionados ao pedido.
+Locais de armazenamento são cadastrados utilizando:
 
-O sistema reserva a quantidade necessária no estoque.
+POST /v1/locations
+
+O estoque é registrado com:
+
+POST /v1/stock
+
+Quando um pedido é criado:
+
+POST /v1/orders
+
+Os produtos são adicionados ao pedido e o sistema reserva a quantidade necessária no estoque.
