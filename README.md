@@ -114,19 +114,11 @@ database.sql
 
 Esse arquivo contém a criação das tabelas principais do sistema:
 
--products
-
--stock
-
--orders
-
--order_items
-
--physical_locations
 | products   |
 | stock  |
 | orders        | 
 | orders_items  |
+| physical_locations |
 
 Schema de Estoque
 
