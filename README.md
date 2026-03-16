@@ -123,6 +123,10 @@ Esse arquivo contém a criação das tabelas principais do sistema:
 -order_items
 
 -physical_locations
+| products   |
+| stock  |
+| orders        | 
+| orders_items  |
 
 Schema de Estoque
 
