@@ -1,24 +1,250 @@
-Endpoint para buscar produto:
+1. Visão Geral
 
-GET /v1/products/:sku
+A API foi desenvolvida para gerenciar produtos, estoque, locais físicos de armazenamento e pedidos. Ela segue o padrão REST, utilizando métodos HTTP para realizar operações de consulta, criação e atualização de dados.
 
-Exemplo de requisição:
+Os principais recursos da API são:
 
-GET /v1/products/SKU-99
+Produtos
 
-Resposta da API:
+Locais físicos
 
+Estoque
+
+Pedidos
+
+Itens do pedido
+
+Os métodos HTTP utilizados são:
+
+Método	Função
+GET	Consultar informações
+POST	Criar novos registros
+PUT	Atualizar completamente um registro
+PATCH	Atualizar parcialmente um registro
+2. API de Produtos
+Criar produto
+
+POST /products
+
+Cria um novo produto no sistema.
+
+Exemplo de requisição
 {
-  "product_id": "89f3b123",
-  "sku": "SKU-99",
-  "display_name": "Monitor UltraWide 29",
-  "unit_price": 1850.00,
+  "sku": "PROD-001",
+  "display_name": "Mouse Gamer",
+  "unit_price": 120.00
+}
+Resposta esperada
+{
+  "product_id": "uuid",
+  "sku": "PROD-001",
+  "display_name": "Mouse Gamer",
+  "unit_price": 120.00,
   "status": "available"
 }
+Listar produtos
 
+GET /products
 
-projeto/
-│
-├── database.sql
-├── README.md
-└── product.json
+Retorna todos os produtos cadastrados.
+
+Buscar produto específico
+
+GET /products/{product_id}
+
+Retorna as informações de um produto específico.
+
+Atualizar produto
+
+PUT /products/{product_id}
+
+Atualiza todas as informações de um produto.
+
+Exemplo
+{
+  "sku": "PROD-001",
+  "display_name": "Mouse Gamer RGB",
+  "unit_price": 130.00,
+  "status": "available"
+}
+Atualizar status do produto
+
+PATCH /products/{product_id}/status
+
+Atualiza apenas o status do produto.
+
+Exemplo
+{
+  "status": "unavailable"
+}
+3. API de Locais Físicos
+Criar local físico
+
+POST /locations
+
+Cria um novo local de armazenamento.
+
+Exemplo
+{
+  "location_code": "DEP01",
+  "location_name": "Depósito Principal",
+  "location_type": "warehouse",
+  "capacity": 1000
+}
+Listar locais
+
+GET /locations
+
+Retorna todos os locais cadastrados.
+
+Buscar local específico
+
+GET /locations/{location_id}
+
+Retorna os dados de um local específico.
+
+Atualizar local
+
+PUT /locations/{location_id}
+
+Atualiza completamente os dados do local.
+
+Atualizar status do local
+
+PATCH /locations/{location_id}/status
+
+Atualiza apenas o status do local.
+
+4. API de Estoque
+Consultar estoque de um produto
+
+GET /stock/{product_id}
+
+Retorna as informações de estoque de um produto.
+
+Resposta
+{
+  "product_id": "uuid",
+  "locations": [
+    {
+      "location_id": "uuid",
+      "quantity": 20,
+      "reserved": 5
+    }
+  ]
+}
+Adicionar produto ao estoque
+
+POST /stock
+
+Registra um produto em um local físico.
+
+Exemplo
+{
+  "product_id": "uuid",
+  "location_id": "uuid",
+  "quantity": 50
+}
+Atualizar quantidade do estoque
+
+PATCH /stock
+
+Atualiza parcialmente os dados de estoque.
+
+Exemplo
+{
+  "product_id": "uuid",
+  "location_id": "uuid",
+  "quantity": 60
+}
+Reservar estoque
+
+PATCH /stock/reserve
+
+Reserva uma quantidade de produto para um pedido.
+
+Exemplo
+{
+  "product_id": "uuid",
+  "quantity": 5
+}
+5. API de Pedidos
+Criar pedido
+
+POST /orders
+
+Cria um novo pedido.
+
+Exemplo
+{
+  "items": [
+    {
+      "product_id": "uuid",
+      "quantity": 2
+    }
+  ]
+}
+Listar pedidos
+
+GET /orders
+
+Retorna todos os pedidos registrados.
+
+Buscar pedido específico
+
+GET /orders/{order_id}
+
+Retorna os dados completos de um pedido.
+
+Atualizar pedido
+
+PUT /orders/{order_id}
+
+Atualiza completamente um pedido.
+
+Atualizar status do pedido
+
+PATCH /orders/{order_id}/status
+
+Atualiza parcialmente o status do pedido.
+
+Exemplo
+{
+  "status": "confirmed"
+}
+6. API de Itens do Pedido
+Adicionar item ao pedido
+
+POST /orders/{order_id}/items
+
+Adiciona um produto a um pedido.
+
+Exemplo
+{
+  "product_id": "uuid",
+  "quantity": 3,
+  "unit_price": 120.00
+}
+Listar itens do pedido
+
+GET /orders/{order_id}/items
+
+Retorna todos os itens de um pedido.
+
+Atualizar item do pedido
+
+PATCH /orders/items/{order_item_id}
+
+Atualiza quantidade ou preço de um item do pedido.
+
+7. Fluxo básico do sistema
+
+Produtos são cadastrados utilizando POST /products.
+
+Locais de armazenamento são cadastrados usando POST /locations.
+
+O estoque é registrado com POST /stock.
+
+Quando um pedido é criado (POST /orders), os produtos são adicionados ao pedido.
+
+O sistema reserva a quantidade necessária no estoque.
