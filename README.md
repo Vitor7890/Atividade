@@ -1,16 +1,16 @@
 Marketplace Distribuído - API
 
-Projeto (Trabalho – 4 pontos)
+Projeto (Trabalho – 4 pontos) Grupo 2
 
-323119320	Alexsander Miranda Henriques	Grupo 2			
+323119320	Alexsander Miranda Henriques	
 
-326110837	Lucas Henrique Matias de Souza	Grupo 2				
+326110837	Lucas Henrique Matias de Souza				
 
-326111083	Paulo Henrique Magalhães Soares	Grupo 2			
+326111083	Paulo Henrique Magalhães Soares			
 
-32420127	Samuel Xavier Monteiro	Grupo 2				
+32420127	Samuel Xavier Monteiro			
 
-32318120	Vitor Gabriel dos Reis Souza	Grupo 2
+32318120	Vitor Gabriel dos Reis Souza	
 
 Descrição
 
