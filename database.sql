@@ -1,5 +1,5 @@
 
-CREATE TABLE produtos (
+CREATE TABLE products (
     product_id UUID PRIMARY KEY,
     sku VARCHAR(50) UNIQUE NOT NULL,
     display_name VARCHAR(255) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE produtos (
     status VARCHAR(20) DEFAULT 'available'
 );
 
-CREATE TABLE estoque (
+CREATE TABLE stock (
     product_id UUID PRIMARY KEY,
     quantity INTEGER NOT NULL,
     reserved INTEGER DEFAULT 0,
@@ -30,7 +30,7 @@ CREATE TABLE order_items (
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
-CREATE TABLE local_fisico (
+CREATE TABLE physical_locations (
     location_id UUID PRIMARY KEY,
     location_code VARCHAR(50) UNIQUE NOT NULL,
     location_name VARCHAR(255) NOT NULL,
