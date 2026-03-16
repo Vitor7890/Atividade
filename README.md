@@ -114,6 +114,8 @@ database.sql
 
 Esse arquivo contém a criação das tabelas principais do sistema:
 
+| Tabela | Descrição |
+|------|------|
 | products | Armazena as informações dos produtos |
 | stock | Controla a quantidade disponível de cada produto |
 | orders | Registra os pedidos realizados |
