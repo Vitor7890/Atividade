@@ -1,0 +1,24 @@
+Endpoint para buscar produto:
+
+GET /v1/products/:sku
+
+Exemplo de requisição:
+
+GET /v1/products/SKU-99
+
+Resposta da API:
+
+{
+  "product_id": "89f3b123",
+  "sku": "SKU-99",
+  "display_name": "Monitor UltraWide 29",
+  "unit_price": 1850.00,
+  "status": "available"
+}
+
+
+projeto/
+│
+├── database.sql
+├── README.md
+└── product.json
