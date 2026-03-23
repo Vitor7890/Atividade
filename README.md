@@ -24,8 +24,6 @@ Catálogo → gerenciamento de produtos
 
 Estoque → controle da quantidade disponível
 
-Pedidos → criação e gerenciamento de pedidos
-
 O banco de dados utilizado é PostgreSQL, hospedado no Supabase.
 
 Padrão de Dados (JSON)
@@ -56,7 +54,7 @@ Exemplo de resposta
   "status": "available"
 }
 
-2. Consultar Estoque
+Consultar Estoque
 GET /v1/stock/:product_id
 
 Descrição:
@@ -75,27 +73,6 @@ quantity → quantidade total disponível
 
 reserved → quantidade reservada para pedidos
 
-3. Criar Pedido
-POST /v1/orders
-
-Descrição:
-Cria um novo pedido contendo os produtos selecionados.
-
-Exemplo de requisição
-{
-  "items": [
-    {
-      "sku": "SKU-99",
-      "quantity": 1
-    }
-  ]
-}
-Exemplo de resposta
-{
-  "order_id": "a72f98",
-  "total_amount": 1850.00,
-  "status": "confirmed"
-}
 Tratamento de Erros
 
 A API utiliza códigos HTTP padrão para indicar o resultado das requisições.
@@ -126,10 +103,7 @@ Esse arquivo contém a criação das tabelas principais do sistema:
 
 | Tabela | Descrição |
 |------|------|
-| products | Armazena as informações dos produtos |
 | stock | Controla a quantidade disponível de cada produto |
-| orders | Registra os pedidos realizados |
-| order_items | Armazena os itens que compõem cada pedido |
 | physical_locations | Registra os locais físicos de armazenamento |
 
 Schema de Estoque
