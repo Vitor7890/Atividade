@@ -1,5 +1,5 @@
 
-#Projeto (Trabalho – 4 pontos) Grupo 2
+Projeto (Trabalho – 4 pontos) Grupo 2
 
 323119320 Alexsander Miranda Henriques
 
