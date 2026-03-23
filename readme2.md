@@ -203,8 +203,9 @@ A API utiliza códigos HTTP padrão para indicar o resultado das requisições.
 
 ---
 
+
+#### Resposta (500)
 ```json
-Resposta (500)
 {
   "error": "internal_server_error",
   "message": "Ocorreu um erro inesperado ao processar a requisição"
