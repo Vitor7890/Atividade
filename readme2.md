@@ -38,28 +38,6 @@ Foi adotado o padrão `snake_case` para os nomes dos campos em todas as requisi�
 
 ## Endpoints da API
 
-### 1. Buscar Produto
-
-**GET /v1/products/:sku**
-
-#### Descrição
-
-Retorna os dados de um produto a partir do seu SKU.
-
-#### Exemplo de resposta
-
-```json
-{
-  "product_id": "89f3b",
-  "sku": "SKU-99",
-  "display_name": "Monitor UltraWide 29",
-  "unit_price": 1850.00,
-  "status": "available"
-}
-```
-
----
-
 ## Estoque
 
 ### 2. Consultar Estoque
