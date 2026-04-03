@@ -11,6 +11,8 @@ Projeto (Trabalho – 4 pontos) Grupo 2
 
 32318120 Vitor Gabriel dos Reis Souza
 
+323130283 Matheus Mendes Benevides
+
 # API Marketplace Distribuído
 
 ## Descrição
